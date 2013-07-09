@@ -18,18 +18,18 @@ public class CloudEmailCredentials extends PropertiesEmailCredentials {
     private Map<String, String> credentials;
 
     public CloudEmailCredentials() {
-        CloudEnvironment cloudEnvironment = new CloudEnvironment();
-        getSendGridCredentials(cloudEnvironment.getServices());
+        getSendGridCredentials();
 
         logger.info("credentials=" + credentials);
     }
 
     @SuppressWarnings("unchecked")
-    private void getSendGridCredentials(List<Map<String, Object>> services) {
-        for (Map<String, Object> service : services) {
-            if (service.get("label").toString().contains("sendgrid")) {
-                credentials = (Map<String, String>) service.get("credentials");
-            }
+    private void getSendGridCredentials() {
+        CloudEnvironment cloudEnvironment = new CloudEnvironment();
+        List<Map<String, Object>> services = cloudEnvironment.getServiceDataByLabels("sendgrid");
+
+        if (services.size() > 0) {
+            credentials = (Map<String, String>) services.get(0).get("credentials");
         }
     }
 
@@ -38,7 +38,7 @@ public class CloudEmailCredentials extends PropertiesEmailCredentials {
         if (!StringUtils.isEmpty(host)) {
             return host;
         } else {
-            return credentialsOrEmptyString("host");
+            return credentialsOrEmptyString("hostname");
         }
     }
 
