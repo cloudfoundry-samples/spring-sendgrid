@@ -3,7 +3,8 @@ applications:
 - name: spring-sendgrid
   memory: 512M
   instances: 1
-  url: spring-sendgrid.${target-base}
+  host: spring-sendgrid-${random-word}
+  domain: cfapps.io
   path: build/libs/spring-sendgrid.war
   services:
     spring-sendgrid:
