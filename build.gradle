@@ -7,7 +7,7 @@ apply plugin: 'idea'
 apply plugin: 'tomcat'
 apply plugin: 'war'
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 version = '1.0'
 
 sourceSets {
@@ -53,27 +53,28 @@ dependencies {
     compile "org.springframework:spring-webmvc:${springVersion}"
     
     // Spring Cloud
-    compile "org.springframework.cloud:spring-cloud-spring-service-connector:${springCloudVersion}"
-    compile "org.springframework.cloud:spring-cloud-cloudfoundry-connector:${springCloudVersion}"
+    compile "org.springframework.cloud:spring-cloud-spring-service-connector:${springCloudConnectorsVersion}"
+    compile "org.springframework.cloud:spring-cloud-cloudfoundry-connector:${springCloudConnectorsVersion}"
 
     // Java Mail
-    compile "javax.mail:javax.mail-api:1.5.0"
-    compile "com.sun.mail:javax.mail:1.5.0"
+    compile "javax.mail:javax.mail-api:1.5.5"
+    compile "com.sun.mail:javax.mail:1.5.5"
 
     // JSON
-    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.8'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.2.0'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.2.0'
 
     // Logging
-    compile 'org.slf4j:slf4j-api:1.7.2'
-    compile 'org.slf4j:slf4j-log4j12:1.7.2'
-    compile 'log4j:log4j:1.2.17'
+    compile 'org.slf4j:slf4j-api:1.7.18'
+    compile 'org.slf4j:slf4j-log4j12:1.7.18'
+    compile 'org.apache.logging.log4j:log4j-core:2.5'
 
     // Servlet
-    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
     compile "javax.servlet:jstl:1.2"
 
     // Testing
-    testCompile 'junit:junit:4.8.2'
+    testCompile 'junit:junit:4.12'
 
     // Tomcat
     tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
@@ -84,7 +85,7 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.0'
+    gradleVersion = '2.11'
 }
 
 war {
@@ -95,3 +96,4 @@ war {
 tomcatRun {
     outputFile = file('tomcat.log')
 }
+
